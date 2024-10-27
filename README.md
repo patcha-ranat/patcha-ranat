@@ -1,8 +1,7 @@
 ### 👋 My name is Patcharanat, I'm a Data Engineer and interested in
+- MLOps / ML System & Deployment
 - Data Solutions / Data Architecture
-- Data Science
-- Machine learning
-- MLOps / ML system
+- Data Science / Machine learning
 
 ### 🚀Personal Projects
 - My highlight project
