@@ -36,6 +36,12 @@ python -m venv <folder_name>
 
 # bash (unable to use via Makefile)
 source ./<folder_name>/Script/activate
+
+# pip
+pip list
+pip freeze > requirements.txt
+pip show <package-name>
+pip install -r requirements.txt --no-cache
 ```
 
 ## Docker
