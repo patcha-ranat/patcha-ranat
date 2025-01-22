@@ -5,8 +5,9 @@
 
 ### 🚀Personal Projects
 - My highlight project
-    - [Ecommerce-Invoice-End-to-end](https://github.com/patcha-ranat/Ecommerce-Invoice-End-to-end)
+    - [End-to-end E-commerce Data Project - AI-Driven Interpretable Dynamic Customer Segmentation](https://github.com/patcha-ranat/Ecommerce-Invoice-End-to-end)
     - [MLOps-ml-system](https://github.com/patcha-ranat/MLOps-ml-system)
+    - [Local Airflow K8s Helm](https://github.com/patcha-ranat/local-airflow-k8s-helm)
 - Check all my data projects [**here**](projects.md).
 
 ### 📫Contact Me
