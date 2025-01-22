@@ -85,6 +85,8 @@ docker compose down -v
 # terraform files located in the current workdir
 terraform init
 
+terraform validate
+
 terraform plan
 
 terraform apply
@@ -185,6 +187,11 @@ gcloud auth application-default login
 # copy a file
 gsutil cp <local-source-path-or-cloud-URI> <destination>
 # copy folder use flag -r
+```
+
+## AWS
+```bash
+aws configure
 ```
 
 ## Azure
