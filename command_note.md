@@ -63,7 +63,9 @@ poetry update
 ```
 
 ## Docker
+
 - Docker
+
 ```bash
 docker ps
 
@@ -85,8 +87,13 @@ docker run -it --name <container_name> <image_name> <app_arg> ...
 docker exec -it <container_name_or_id> bash
 
 docker stop <container_name_or_id>
+
+# clear image cache
+docker builder prune
 ```
+
 - Docker compose
+
 ```bash
 # docker-compose.yml located in the current workdir
 docker compose build
@@ -96,6 +103,10 @@ docker compose up
 
 # remove volumes
 docker compose down -v
+
+# specify a target file
+docker compose -f path/to/target/docker-compose.yml up --build
+docker compose -f path/to/target/docker-compose.yml down -v
 ```
 
 ## Terraform
@@ -204,18 +215,30 @@ minikube delete --all
 ```bash
 # As a developer, I want to interact with GCP via gcloud.
 gcloud auth activate
+gcloud auth activate-service-account <service-account-name>@<project-name>.iam.gserviceaccount.com
 
 # As a developer, I want my code to interact with GCP via SDK.
 gcloud auth application-default login
+# impersonated account
+gcloud auth application-default login --impersonate-service-account <service-account-name>@<project-name>.iam.gserviceaccount.com
 
 # copy a file
 gsutil cp <local-source-path-or-cloud-URI> <destination>
 # copy folder use flag -r
+
+# GOOGLE_APPLICATION_DEFAULT
+# Windows: C:\Users\<PC-User>\AppData\Roaming\gcloud\application_default_credentials.json
 ```
 
 ## AWS
 ```bash
 aws configure
+
+aws configure sso
+
+aws configure list-profiles
+
+aws sso login --profile <aws-profile>
 ```
 
 ## Azure
@@ -234,4 +257,26 @@ psql -U <username> -d <database-name>
 \dn
 
 \q
+```
+
+## Kafka
+
+```bash
+# modern-elt (kde-finance) project
+
+# kafka schema registry
+
+# delete registered schema from schema registry
+curl -X DELETE http://localhost:8081/subjects/<topic>-value
+
+# kafka connect
+
+# deploy kafka connector
+curl -X POST -H "Content-Type: application/json" --data @path/to/conenctor-config.json http://localhost:8083/connectors
+
+# force check connector's status
+curl -s http://localhost:8083/connectors/<connector-name>/status
+
+# delete deployed kafka connector
+curl -X DELETE http://localhost:8083/connectors/<connector-name>
 ```
