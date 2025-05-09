@@ -19,6 +19,9 @@ chmod +x <file-name>
 # recursively find filename that match specified glob pattern
 find . -iname "<glob-pattern>"
 
+# print environment variables that match pattern
+printenv | grep "SOME_PATTERN_NOT_REGEX"
+
 # sh script
 var1="$1"
 var2="$2"
@@ -42,6 +45,21 @@ pip list
 pip freeze > requirements.txt
 pip show <package-name>
 pip install -r requirements.txt --no-cache
+
+# Poetry
+export POETRY_HOME="~/.poetry-env"
+export VENV_PATH="$POETRY_HOME/Scripts" # Windows
+# export VENV_PATH="$POETRY_HOME/bin" # MacOS
+export PATH="$VENV_PATH/$PATH"
+
+which poetry
+where python
+poetry -V
+
+poetry init
+poetry install
+poetry update
+# check zoomcamp `poetry` topic
 ```
 
 ## Docker
@@ -85,6 +103,8 @@ docker compose down -v
 # terraform files located in the current workdir
 terraform init
 
+terraform fmt
+
 terraform validate
 
 terraform plan
@@ -92,6 +112,10 @@ terraform plan
 terraform apply
 
 terraform destroy
+
+# terraform -chdir=mbti_ipip/terraform fmt -check -diff
+# terraform -chdir=mbti_ipip/terraform plan -no-color
+# terraform -chdir=mbti_ipip/terraform apply -auto-approve
 ```
 
 ## Kubernetes (k8s)
