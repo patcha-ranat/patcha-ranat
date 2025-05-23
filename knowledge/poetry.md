@@ -35,12 +35,15 @@ deactivate
 pip uninstall poetry
 
 # 1. prepare executable path for new poetry's isolated python environment
-export VENV_PATH="/c/Users/<your-pc-username>/.poetry-env/Scripts"
+export POETRY_HOME="/c/Users/<your-pc-username>/.poetry-env"
+export VENV_PATH="${POETRY_HOME}/Scripts"
 
 # 2. add new isolated venv to $PATH *temporarily* to be executable for the current session
 export PATH="$VENV_PATH:$PATH"
 
 # 3. create venv for poetry
+python -m venv ~/.poetry-env
+
 $VENV_PATH/python -m pip install -U pip setuptools
 $VENV_PATH/python -m pip install poetry
 # OR $VENV_PATH/pip install poetry
@@ -55,6 +58,9 @@ which poetry
 # check if python in poetry is executable
 # where python should "/c/Users/<your-pc-username>/.poetry-env/Scripts/python" path in list
 where python
+# below command should be executed after `poetry install` and return in '%/virtualenvs/%' due to using poetry environment
+poetry run which python
+poetry run where python
 ```
 
 To uninstall `poetry`, just delete `$VENV_PATH` directory (venv folder). And please, note that this `poetry` is available only within a session, because refreshing terminal session will result in removing `VENV_PATH` environment variable and modified `$PATH` which is modified for temporary.

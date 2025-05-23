@@ -121,23 +121,28 @@
             - Unit Test, Integration Test
     - Data Rockie Streamlit
 
-8. sp-test
+8. save-canva-link-to-pdf
+    - Scraping canva link to create a pdf from it with selenium
+        - Using `selenium` to extract image url then convert to PDF
+        - Using `pyautogui` to automated capturing slides saved as image then convert to PDF
+
+9. sp-test
     - Pyspark with Business Logic
     - Pyspark SQL setting up
 
-9. TD-Test
+10. TD-Test
     - ETL Pipeline with MongoDB, GCS, Bigquery, Docker, Airflow, and Terraform
 
-10. Big-Data-for-Energy-Management
+11. Big-Data-for-Energy-Management
     - The project introduced understanding of the machine learning model development process, such as cross-validation, hyperparameter tuning, models' algorithm, mostly tree-based models, model evaluation and other techniques such as early stopping, imputation, data pre-processing, and feature engineering.
     - The energy demand inference from regression model can also be used further to cluster the similar energy consumption patterns which might be useful for us knowing the future energy consumption.
 
 ## Data Analysis Projects
 
-11. Marketing-Dashboard
-12. GrabSpark-Data-Analytics-for-Business-Use-Cases
-13. food-retail-strategy
-14. Online-Learning-Platform-Analysis
-15. Web-Scraping-and-Data-Analytics-PodBean
-16. FB-Live-Analysis-Chadchart
-17. Crime-REST-API-Machine-Learning
+12. Marketing-Dashboard
+13. GrabSpark-Data-Analytics-for-Business-Use-Cases
+14. food-retail-strategy
+15. Online-Learning-Platform-Analysis
+16. Web-Scraping-and-Data-Analytics-PodBean
+17. FB-Live-Analysis-Chadchart
+18. Crime-REST-API-Machine-Learning
