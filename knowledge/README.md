@@ -8,5 +8,6 @@ For Data Science and Machine Learning notes, please refer to this repo: [Machine
 
 ## Table of Content
 
-- [Essential CLI Commands Note: `cli_command_note.md`](./cli_command_note.md)
-- [Apache Iceberg: `iceberg.md`](./iceberg.md)
+- [Essential CLI Commands Note](./cli_command_note.md)
+- [Apache Iceberg](./iceberg.md)
+- [Poetry](./poetry.md)
