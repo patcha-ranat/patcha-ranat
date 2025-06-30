@@ -11,3 +11,4 @@ For Data Science and Machine Learning notes, please refer to this repo: [Machine
 - [Essential CLI Commands Note](./cli_command_note.md)
 - [Apache Iceberg](./iceberg.md)
 - [Poetry](./poetry.md)
+- [AWS Cloud 101](./aws_cloud_101.md)
