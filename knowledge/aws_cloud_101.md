@@ -31,56 +31,56 @@
 1. Scaling vs Elasticity
     1. elastic = adjusting resource (scale) automatically in response to changes in demand
     2. scaling = scaling up-down / out-in
-2. EC2 and type + pricing
+2. **EC2** and type + pricing
     1. on-demand
     2. spot
     3. saving plans
     4. reserved instances
     5. Multi-tenancy (same instances while isolated)
-3. Amazon Machine Image (AMI)
-4. Auto Scaling (scaling up / out)
-5. ELB: Elastic Load Balancing → route traffic, not scaling
-6. SQS: Simple Queue Service: message/queue service
-7. SNS: Simple Notification Service: publish-subscribe service (+topic)
-8. EventBridge: Serverless event-driven service
+3. **Amazon Machine Image (AMI)**
+4. **Auto Scaling** (scaling up / out)
+5. **ELB**: Elastic Load Balancing → route traffic, not scaling
+6. **SQS**: Simple Queue Service: message/queue service
+7. **SNS**: Simple Notification Service: publish-subscribe service (+topic)
+8. **EventBridge**: Serverless event-driven service
 
 ## 1.3 AWS Cloud Practitioner Essentials - Module 3 - Severless
 
 1. Unmanaged / Managed / Fully-Managed
-2. AWS Lambda - function - event-driven
-3. ECS: Elastic Container Service (Orchestrator)
-4. EKS: Elastic Kubernetes Service (Orchestrator)
-5. ECR: Amazon Elastic Container Registry
-6. AWS Fargate (compute option) (unless, EC2) - serverless compute engine for container
+2. **AWS Lambda** - function - event-driven
+3. **ECS: Elastic Container Service** (Orchestrator)
+4. **EKS: Elastic Kubernetes Service** (Orchestrator)
+5. **ECR: Amazon Elastic Container Registry**
+6. **AWS Fargate** (compute option) (unless, EC2) - serverless compute engine for container
 
 ### 1.3.1 Additional Compute Services
 
-- Elastic Beanstalk - deploying on EC2 without concerning scaling, load balancing (fully managed)
+- **Elastic Beanstalk** - deploying on EC2 without concerning scaling, load balancing (fully managed)
     - good for - web app / RESTful API / mobile backend / microservices with automated scaling
-- AWS Batch - a compute service for processing massive dataset without scaling and infrastructure concerns
+- **AWS Batch** - a compute service for processing massive dataset without scaling and infrastructure concerns
     - parallel is possible
     - suit for scientific computing - analysis / big data processing / machine learning training
-- Amazon Lightsail - simplified web app hosting
+- **Amazon Lightsail** - simplified web app hosting
     - virtual private server (VPS), storage, database, and networking
     - suit for small business, basic workloads (no scaling, just minimal included in one package)
-- AWS Outposts - hybrid-cloud
+- **AWS Outposts** - hybrid-cloud
     - low-latency / data processing in remote / migrating legacy application
 
 ## 1.4 AWS Cloud Practitioner Essentials - Module 4 - Introduction to going Global
 
-- CLoudFront - edge location → low-latency by caching concept (located separatedly from region)
+- **CloudFront** - edge location → low-latency by caching concept (located separatedly from region)
 - multi-region / multi-az are related to
     - latency of user
     - compliance
     - fault-tolerance
     - and cost to operate
-- CloudFormation - Infrastructure as Code (IaC)
+- **CloudFormation** - Infrastructure as Code (IaC)
 
 ## 1.5 AWS Cloud Practitioner Essentials - Module 5 - Networking
 
 ### 1.5.1 Concepts
 
-- Amazon Networking = Virtual Private Cloud (VPC)
+- Amazon Networking = **Virtual Private Cloud (VPC)**
     - is used to establish boundaries around AWS resources
 - public / private
 - subnet
@@ -97,35 +97,35 @@
 
 ### 1.5.2 Services
 
-- AWS Client VPN
+- **AWS Client VPN**
     - provides secure access to AWS resources and on-premises networks from anywhere with VPN. It is elastic and fully managed.
-- AWS Site-to-Site VPN
+- **AWS Site-to-Site VPN**
     - create a secure connection between your data center or branch offices and your AWS Cloud resources
     - secure connection (encrypted) between remote locations
-- AWS PrivateLink
+- **AWS PrivateLink**
     - with PrivateLink, you can use to privately connect your VPC to your external services and resources as if they were in your VPC
     - you control specific API endpoints, sites, services, and resources that are reachable from your VPC
     - Still, traffic jams are possible because PrivateLink use the same connection as other clients, that’s why sometimes we need a dedicated private connection for a lot of bandwidth
-- AWS Direct Connect
+- **AWS Direct Connect**
     - establish a dedicated private connection between your network and VPC
     - reduce network cost, increase amount of bandwidth
     - best or latency-sensitive application / large-scale data migration / hybrid cloud architecture
 
 ### 1.5.3 Additional Services
 
-- AWS Transit Gateway
+- **AWS Transit Gateway**
     - connect VPC and on-premise networks through central-hub
-- Network Address Translation (NAT) Gateway
+- **Network Address Translation (NAT) Gateway**
     - to make instances in private subnet can connect to services outside your VPC, but external services can’t initiate a connection with those instances
-- Amazon API Gateway
+- **Amazon API Gateway**
     - securing API
 
 ### 1.5.4 Subnets, Security Groups, and Network Access Control Lists
 
 - Packet -> VPC - Internet Gateway (IGW) -> Public Subnet -> Evaluate ***Network Access Control List*** (Network ACL) -> Security Group
-- Network ACL (Stateless) -> only check if sender is in the approved list (not checking the content). confition for in and out can be different
+- **Network ACL (Stateless)** -> only check if sender is in the approved list (not checking the content). confition for in and out can be different
     - Subnet Level
-- Security Group (Stateful) can be configured to accept only specified type of connections
+- **Security Group (Stateful)** can be configured to accept only specified type of connections
     - Instance Level
 - In VPC creation demo, VPC can be created in AWS VPC service and private/public subnet can also be created within the service.
     - don't set Auto-assign UP settings to keep it private subnet.
@@ -138,9 +138,9 @@
 
 - Edge Networking Services - Secure and speedy networking for user-facing application data
     - DNS Resolver + Server - Translating Domain Name to IP Address
-- Amazon Route 53 is an AWS DNS Service 
-- CloudFront is Content Delivery Network (CDN) - delivery service for your content with faster loading time (caching)
-- AWS Global Accelerator - networking service that helps your application run faster *globally* by adding fault-tolerance and changing route when some AZ goes down.
+- **Amazon Route 53** is an AWS DNS Service 
+- **CloudFront** is Content Delivery Network (CDN) - delivery service for your content with faster loading time (caching)
+- **AWS Global Accelerator** - networking service that helps your application run faster *globally* by adding fault-tolerance and changing route when some AZ goes down.
     - example - global gaming company use case, Financial Service application
 
 ### 1.5.6 Global Architecture
@@ -151,7 +151,7 @@
     - Remote Access
     - Small-scale
     - Dedicated isn't necessary
-- AWS Direct Connect should be used when it needs
+- **AWS Direct Connect** should be used when it needs
     - High bandwidth
     - Low latency
     - Large data transfer / Consistent performance
@@ -160,15 +160,34 @@
 ## 1.6 AWS Cloud Practitioner Essentials - Module 6 - Storage
 
 - Block Storage
-    - AWS EC2 instance store - unmanaged non-persistent - high performance block storgae
-    - Amazon Elastic Block Store (EBS) - managed service - persistent block storage
+    - **AWS EC2 instance store** - unmanaged non-persistent - high I/O performance block storage (gone with EC2 instance stopped) come with default EC2 setup
+    - **Amazon Elastic Block Store (EBS)** - managed service - persistent hard drives (EBS volumes) - can be attached to EC2
+    - Data Lifecycle = creating + backing up + deleting / snapshots
+        - Incremental Backup = faster + storage efficient
+        - snapshot = point-in-time
+        - **Amazon Data Lifecycle Manager** = automated snapshot lifecycle management 
+        - EBS snapshots - using s3 for storing backup (redundantly in multiple-AZs)
+            - EBS snapshots can capture the exact state of volume at a point in time, making them able to be duplicated environment for testing purpose
 - Object Storage
-    - Amazon Simple Storage Service (S3)
+    - **Amazon Simple Storage Service (S3)** - virtually unlimited storage, object life cycle management, broad range of use cases
+        - pay-as-you-use
+        - S3 Storage Class - different type of storage behavior leading to cost optimized
+            - S3 Standard - access regularly / general-purpose
+            - S3 Standard-IA - Infrequent Access / perfect for backup
+            - Glacier - long-term archiving - relatively slow for retrieval / lower cost
+            - Glacier Instant Retrival - quick access occasionally e.g. medical images / media files
+            - Glacier Deep Archive - the most cost effective option - suit for data hardly ever need
+            - Additional Options
+                - S3 Express One Zone
+                - S3 Express One Zone-IA
+        - S3 Lifecycle
+            - help you move data between classes automatically or delete when it's no longer needed
+            - S3 Intelligent-Tiering - automatically move data between classes based on data usage
 - File Storage - Shared file system
-    - Amazon Elastic File System (EFS)
-    - Amazon FSx 
+    - **Amazon Elastic File System (EFS)**
+    - **Amazon FSx** 
 - Additional Storage Services
-    - AWS Storage Gateway
-    - AWS Elastic Disaster Recovery
+    - **AWS Storage Gateway**
+    - **AWS Elastic Disaster Recovery**
 
 ---
