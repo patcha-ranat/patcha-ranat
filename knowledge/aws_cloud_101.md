@@ -29,6 +29,13 @@
         - [1.8.1 AI/ML On AWS](#181-aiml-on-aws)
         - [1.8.2 Generative AI on AWS](#182-generative-ai-on-aws)
         - [1.8.3 Intro to Data Analytics](#183-intro-to-data-analytics)
+    - [1.9 AWS Cloud Practitioner Essentials - Module 9 - Security](#19-aws-cloud-practitioner-essentials---module-9---security)
+        - [1.9.1 Security Control](#191-security-control)
+        - [1.9.2 Network and Application Protection](#192-network-and-application-protection)
+        - [1.9.3 Protecting Data](#193-protecting-data)
+        - [1.9.4 Detection and Incident Response](#194-detection-and-incident-response)
+    - [1.10 AWS Cloud Practitioner Essentials - Module 10 - Monitoring, Compliance, and Governance](#110-aws-cloud-practitioner-essentials---module-10---monitoring-compliance-and-governance)
+        - []()
 
 # 1. AWS Cloud Practitioner Essentials
 
@@ -339,5 +346,67 @@ Fully-managed / Managed / Unmanaged
 - **Amazon OpenSearch Service**
     - real-time search, monitoring, and analysis
     - e.g. application monitoring, log analytics, observability, and website search
+
+## 1.9 AWS Cloud Practitioner Essentials - Module 9 - Security
+
+- Authentication: Verifying identity through credentials
+- Authorization: Grant user access rights and permissions to determine what action they can perform in a system
+
+### 1.9.1 Security Control
+
+- Root User - Owner of the account, has permission to do anything
+    - We don't want to use root user to operate daily task due to security risks
+- **AWS Identity and Access Management (IAM)**, you can create IAM users to operate daily task with granted permission (none by default)
+    - *Least Priviledge Principle* - grant permission only what they need for a task
+    - *IAM Policy* = Permission
+    - IAM Policy is JSON document that describe what API calls user can and cannot make
+    - *IAM groups* make it more convenient to manage permission for a group of users
+        - we can attach IAM Policy to the group to make all user in that group inherit those permissions
+    - *Role* similar to users and groups, but without static credentials such as username and password
+        - Role can be used to temporarily grant access to AWS resources to users, external identities, applications, even or other AWS services
+        - Role is an identity that can be assumed to gain access to temporary permissions.
+        - Role is helpful when trying to manage permission at scale in an organization by avoiding creating credentials for every single user in organization. Instead, use their coporate credentials mapping to IAM Roles
+        - Role - Federated Identity / Cross-account
+        - By role, user who assumes IAM role drops all the previous permissions to use access only available for a new role
+- **IAM Identity Center** - single sign-on (SSO)
+    - Federated Identity Management is a system that allows user to access multiple applications, services, or domains using single set of credentials
+- **AWS Secret Manager** - manage, rotate, retrieve secrets (database credentials, API keys, etc.)
+- **AWS System Manager** - provide centralized view of nodes across your organization's account
+
+### 1.9.2 Network and Application Protection
+
+- Distributed Deniel os Service (DDoS / DoS) - an attack on enterprise's infrastructure by overwhelming the capacity of your application
+- **AWS Shield Standard** - automatically protects AWS resource from common DDoS, built into AWS services, like ELB, CloudFront, Route 53 at no extrac cost
+- **AWS Shield Advanced** - attack diagnosis and ability to detect sophisticated DDoS attack
+- **AWS Web Application Firewall (WAF)** - filter incoming traffic by checking IP Address against a web access control list (web ACL)
+- Additional integration
+    - AWS Shield + AWS WAF
+    - Security Groups / ELB / AWS Region to prevent DDoS
+
+### 1.9.3 Protecting Data
+
+- Encryption-Decryption (key)
+    - Data Encryption at rest
+    - Data Encryption in transit - SSL/TLS are used to establish encrypted network connections
+- **AWS Key Management Service (KMS)** - manage *cryptographic keys* (random string of digits used for encrypting and decrypting)
+    - we can also specify which IAM users and roles can manage keys
+- Secure Socket Layer (SSL)
+- Transport Layer Security (TLS) - SSL upgraded
+- Hypertext Transfer Protocol Secure (HTTPS), site secured by TLS or SSL
+- **Amazon Macie**
+    - monitor/assess using Machine Learning to check sensitive data   in S3
+- **AWS Certificate Manager (ACM)** - 
+    - Centralized SSL/TLS management + on-premises, provide data encryption in transit
+
+### 1.9.4 Detection and Incident Response
+
+- **Amazon Inspector** - automated security assessments for EC2, containers, lambda functions
+- **Amazon GuardDuty** - identify threats by continuously monitoring account metadata & network activity
+- **Amazon Detective** - investigate root cause + visualization
+- **AWS Security Hub** - multiple security services in single place
+
+## 1.10 AWS Cloud Practitioner Essentials - Module 10 - Monitoring, Compliance, and Governance
+
+
 
 ---
