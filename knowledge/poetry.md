@@ -96,6 +96,11 @@ Note: Poetry will automatically detect active venv and use it before trying to c
 poetry env list
 ```
 
+- Using specific python version (requires the python version installed on local machine)
+```bash
+poetry env use 3.11
+```
+
 - Run code using virtual environment
 ```bash
 poetry run python your_script.py
