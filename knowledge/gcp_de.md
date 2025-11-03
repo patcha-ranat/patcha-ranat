@@ -56,22 +56,115 @@ This module provides an introduction to the role of a data engineer. It covers k
         - Insights and semantic search
         - Data Discovery and Data Catalog
         - End-to-end data lineage
-- **Analytic Hub**: Address data sharing challenges between organizations by enabling publish-subscrie method to shared BigQuery datasets
+- **Analytic Hub**: Address data sharing challenges between organizations by enabling publish-subscribe method to shared BigQuery datasets
     - data providers are able to control and monitor how their data is being used
 
 ### 1.3 Data Replication and Migration
 
 This module provides an overview of data replication and migration on Google Cloud. It covers the basic architecture, the 'gcloud' command-line tool, Storage Transfer Service, Transfer Appliance, and Datastream, along with their functionalities and use cases.
 
+- **Cloud Storage (GCS)**: file system, object store, or HDFS
+- **Storage Transfer Service**: efficiently move medium-large datasets from on-premise, multicloud file systems, object stores, and HDFS
+    - high transfer speed
+    - **support scheduling**
+- **Transfer Appliance**: is google's solution for moving large datasets **offline**
+    - google provide hardwares
+    - ideal for very large datasets and limited bandwidth
+    - on-premises
+- **Datastream**: enable continuous (real-time) data replication for on-premise / multicloud (to GCS or BigQuery)
+    - historical backfill and new changes
+    - New changes only
+    - public / private connecticity options
+    - include or exclude schema, table, column
+    - Use cases
+        - database replication to BigQuery
+        - used with custom data processing in Dataflow to BigQuery
+        - Data processing using even-driven architecture
+    - use database's write-ahead log (WAL)
+    - simplify data type conversion by using unified data type to ensure consistency
 
+Apart from data storage type and services, amount of data (data size) and bandwidth also play a crucial role to transfer data between sources.
+
+![gcp_data_replication_services](./pictures/gcp_data_replication_services.png)
 
 ### 1.4 The Extract and Load Data Pipeline Pattern (EL)
 
 This module focuses on data extraction and loading processes on Google Cloud, particularly with BigQuery. It covers the basic extraction and loading architecture, the bq command-line tool, BigQuery Data Transfer Service, and BigLake as an alternative to traditional extract-load patterns.
 
+BigQuery supports loading data from various formats such as Avro, Parquet, ORC, CSV, JSON, Firestore export
+- BigQuery also supports exporting artifact from query result into formats like CSV, JSON, Avro, Parquet
+- BigQuery offer 2 ways to load data
+    1. via UI
+    2. SQL Statement to load suited for automating data loading
+        ```sql
+        LOAD DATA INTO dataset_name.table_name
+        -- LOAD DATA OVERWRITE dataset_name.table_name
+            FROM FILES(
+                format='CSV',
+                uris = ['gs://mybucket/*.csv']
+            )
+        ```
+
+EL pipeline = bring data into destination (in this case is BigQuery) without upfront transformation
+- `bq load` 
+    - we can interact with BigQuery object with Google SDK's `bq` command such as creating dataset, loading data into a table, and etc.
+    ```bash
+    # example of loading data with bq command
+    bq load \
+        --source_format=CSV \
+        --skip_leading_rows=2 \
+        dataset-name.table_name \
+        "gs://my-bucket/00/*.csv","gs://mybucket/01/*.csv" \
+        ./table_schema.json
+    ```
+- **Data Transfer Service**: 
+    - load data from other structure data sources (SaaS, Object Store, Data Warehouse, Third-party)
+    - supports
+        - scheduling, repeating, notification
+        - managed and serverless
+        - no-code solution
+- BigQuery
+    - Permanent table (Native Table)
+        - Pros
+            - High performance
+        - Cons
+            - Requires Data Movement to load to BigQuery Storage
+    - **External tables**
+        - Pros
+            - No Data movement required, No BigQuery Storage
+        - Cons
+            - Low performance, No query cost estimation, No table preview, or No query caching
+            - user needs separate permissions to access table and data source
+        - Example of Data source
+            - Cloud Storage
+            - Google Sheets
+            - Bigtable
+    - **BigLake tables**
+        - Pros
+            - No BigQuery Storage, high performance with no data movement required, metadata caching available
+            - Bigquery use service account to delegate access for data sources with "External Connection" feature
+            - allow many data format: Iceberg, Delta, Hudi
+            - allow cross-cloud (BigQuery Omni)
+            - column-level / row-level security (column-level data masking and access)
+        - Cons
+            - No query cost estimation or table preview
+        - Example of Data sources
+            - Cloud Storage
+            - Cross-cloud object store
+    
+    ![gcp bigquery table types](./pictures/gcp_bigquery_table_types.png)
+
 ### 1.5 The Extract, Load, and Transform Data Pipeline Pattern (ELT)
 
 This module provides an overview of ELT (extract, load, transform) processes on Google Cloud. It covers the basic ELT architecture, a common ELT pipeline example, BigQuery's capabilities for scripting and scheduling SQL, and the functionality and use cases of Dataform.
+
+Once data is loaded to BigQuery, there're multiple ways to transform:
+- Procedural language
+- Scheduled query
+- Jupyter Notebook
+- **Dataform**
+
+*Note: Data must be loaded as Staging tables in BigQuery before further transformation to be Production tables*
 
 ### 1.6 The Extract, Transform, Load Data Pipeline Pattern (ETL)
 
