@@ -158,17 +158,153 @@ EL pipeline = bring data into destination (in this case is BigQuery) without upf
 
 This module provides an overview of ELT (extract, load, transform) processes on Google Cloud. It covers the basic ELT architecture, a common ELT pipeline example, BigQuery's capabilities for scripting and scheduling SQL, and the functionality and use cases of Dataform.
 
+*Note: Data must be loaded as Staging tables in BigQuery before further transformation to be Production tables*
+
 Once data is loaded to BigQuery, there're multiple ways to transform:
 - Procedural language
+    - multiple sql statements with shared state suit for automation and complex logic such as `WHILE` and `IF` SQL
+    - User-defined functions (UDFs) with `CRETAE FUNCTION` by SQL and JavaScripts
+    - can run apache spark stored procedure on BigQuery which
+        - support Python, Java, Scala
+        - Can point to code in a file on cloud storage
+        - can be defined inline in BigQuery
+    ```sql
+    CREATE OR REPLACE PROCEDURE dataset_name.word_count()
+    WITH CONNECTION '<location>.<connection>'
+    OPTIONS(engine="SPARK", runtime_version="1.1")
+    LANGUAGE PYTHON AS R"""
+    
+    from pyspark.sql import SparkSession
+    spark = SparkSession.builder.appName("").getOrCreate()
+    
+    # perform spark operations
+
+    """
+    ```
+    - Can be integrated with cloud function by defining URL endpoint and connection then the function in the cloud funtion can be called by SQL Query similar to UDFs
 - Scheduled query
 - Jupyter Notebook
 - **Dataform**
+    - Serverless Framework to develop and operationalize ELT pipeline in SQL, streamlining versioning and automation in SQL
+    - `sqlx`: SQL and JavaScripts
+    - sql structure
+        - `config` block
+            - define output table, view, dependency, assertion, documentation, data quality test
+        - `js` block
+            - define local javascript function
+        - `pre_operations` block
+            - define SQL to be execute before table creation (e.g., creating a UDF)
+        - SQL Body
+        - `post_operations` block
+            - define SQL to be execute after table creation (e.g., granting access using IAM)
+    ```sql
+    config { type: "table" }
 
-*Note: Data must be loaded as Staging tables in BigQuery before further transformation to be Production tables*
+    SELECT
+        example_column,
+        ${mapping.column("example_column2")} AS example_column3,
+    FROM
+        ${ref("example_table")}
+    ```
+    - config type
+        - "declaration"
+        - "table": `CREATE OR REPLACE TABLE`
+        - "incremental": create a table as above and update it with new data
+        - "view": `CREATE OR REPLACE VIEW`
+        - "assertion": Data Quality check -> Not NULL check, unique key check, custom logic
+        - "operations": DML, custom create table statement (e.g. BigLake tables)
+    - dependencies can be specified 2 ways:
+        ```sql
+        config {
+            ...
+        }
+        SELECT * FROM ${ref("example_table")}
+
+        # OR 
+
+        config {
+            ...
+            dependencies: ["example_table"]
+        }
+        SELECT * FROM ...
+        ```
+    - table metadata (table definition)
+        ```sql
+        config {
+            type: "table",
+            name: "example_table",
+            description: "Table Description"
+        }
+        ...
+
+        # OR
+
+        CREATE OR REPLACE TABLE `dataset.example_table`
+        OPTIONS(description='''Table Description''')
+        AS (SELECT * FROM ...)
+        ```
+    - schedule can be configured in Dataform or can leverage external triggerers such as **Cloud Scheduler** or **Cloud Composer**
 
 ### 1.6 The Extract, Transform, Load Data Pipeline Pattern (ETL)
 
 This module provides an overview of ETL (extract, transform, load) processes on Google Cloud. It covers the basic ETL architecture, GUI tools, batch and streaming data processing options (Dataproc, Dataproc Serverless), and the role of Bigtable in data pipelines.
+
+- GUI for ETL
+    - **Dataprep**
+        - Serverless, no-code for data transformation flows
+        - Predefined transformation
+        - can be executed with Dataflow
+    - **Cloud Data Fusion**
+        - on-premises / multicloud data source connectors
+        - pre-built transformation
+        - allow custom plugin
+        - executed with hadoop/spark
+- Batch
+    - **Dataproc**
+        - managed service for Hadoop / Spark on GCP
+        - Managed cluster: ephemeral, deleted once workflow finished
+        - Cluster selector: existing, pre-defined
+        - Dataproc **Serverless** is available, only pay for exeution time (ephemeral)
+            - serverless provide batch and interaction as notebook (JupyterLab) session options
+- Streaming
+    - **Pub/Sub**
+        - ingest high volume of event data and distribute to different consuming system
+        - Serverless, Asynchronus messaging, At-leastonce delivery, Filtering and sorting
+    - **Dataflow**
+        - Apache Beam-based
+        - serverless, Templates, Notebooks
+        ```python
+        with beam.Pipeline(options=pipeline_options) as pipeline:
+            # Read message from Pub/Sub
+            message = pipeline | 'read' >> ReadFromPubSub(topic='<PUBSUB_TOPIC>')
+
+            # Parse messages
+            def parse_message(message):
+                return json.loads(message.decode('utf-8'))
+
+            parsed_messages = messages | 'parse' >> beam.Map(parse_message)
+            # beam.Map() = applies a specified transformation to the message
+
+            # Write parsed message to BigQuery
+            parsed_message | 'write' >> WritetToBigQuery(
+                table=...,
+                schema=...,
+                create_disposition=...,
+                write_diposition=...,
+            )
+
+            # Run the pipeline
+            pipeline.run()
+        ```
+        - Dataflow allow to use templates for reusable pipeline with different input parameters, plus you can create your own custom templates.
+- **Bigtable** and data pipelines
+    - NoSQL
+    - good choice for handling streaming data pipeline with low latency
+    - open-source HBase API for integration
+    - wide-column with column families
+    - row key as index for fast access
+
+![GCP ETL Service Options](./pictures/gcp_etl_options.png)
 
 ### 1.7 Automation Techniques
 
