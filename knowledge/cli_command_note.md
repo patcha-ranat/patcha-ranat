@@ -91,6 +91,8 @@ docker stop <container_name_or_id>
 
 # clear image cache
 docker builder prune
+
+docker system prune -a
 ```
 
 - Docker compose

@@ -310,6 +310,19 @@ This module provides an overview of ETL (extract, transform, load) processes on 
 
 This module focuses on automation patterns and options for pipelines on Google Cloud. It covers various tools and services like Cloud Scheduler, Workflows, Cloud Composer, Cloud Run functions, and Eventarc, along with their functionalities and use cases for automation.
 
+1. Automation patterns and options for pipelines
+2. **Cloud Scheduler** and **Workflow**
+    - Frequency and Retry config
+    - Trigger for execution
+        - HTTP/S Call
+        - App Engine HTTP
+        - Pub/Sub message
+        - Workflow (YAML config) via HTTP
+3. **Cloud Composer**
+    - Apache Airflow on GCP
+4. **Cloud Run functions** (Cloud Functions)
+5. **Eventarc**
+
 ### 1.8 Course Summary
 
 In this final section, we review what was presented in this course and discuss the next steps to continue your cloud learning journey.
